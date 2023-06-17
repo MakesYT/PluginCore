@@ -2,9 +2,33 @@
 
 public struct PluginInfo
 {
-    public string PluginName;
-    public string PluginId;
-    public string Author;
-    public int VersionInt;
-    public string Version;
+    public string PluginName
+    {
+        set;
+        get;
+    }
+
+    public string PluginId
+    {
+        set;
+        get;
+    }
+
+    public string Author
+    {
+        set;
+        get;
+    }
+
+    public int VersionInt
+    {
+        set;
+        get;
+    }
+
+    public string Version
+    {
+        set;
+        get;
+    }
 }
