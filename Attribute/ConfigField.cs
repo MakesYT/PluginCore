@@ -9,6 +9,13 @@ namespace PluginCore.Attribute;
 [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
 public class ConfigField : System.Attribute
 {
+    public ConfigField(string title, string description, int symbol = 0)
+    {
+        Tittle = title;
+        Description = description;
+        Symbol = symbol;
+    }
+
     public string Tittle
     {
         get;
@@ -31,12 +38,5 @@ public class ConfigField : System.Attribute
     {
         get;
         set;
-    }
-
-    public ConfigField(string title, string description, int symbol = 0)
-    {
-        Tittle = title;
-        Description = description;
-        Symbol = symbol;
     }
 }
