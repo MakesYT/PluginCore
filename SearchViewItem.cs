@@ -7,7 +7,7 @@ using System.IO;
 
 #endregion
 
-namespace Core.SDKs;
+namespace PluginCore;
 
 public class SearchViewItem : IDisposable
 {

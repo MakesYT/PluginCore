@@ -1,6 +1,4 @@
-﻿using Core.SDKs;
-
-namespace PluginCore;
+﻿namespace PluginCore;
 
 public interface ISearchItemTool
 {
