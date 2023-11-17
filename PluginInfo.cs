@@ -37,4 +37,6 @@ public struct PluginInfo
         set;
         get;
     }
+
+    public string ToPlgString() => $"{Author}_{PluginId}";
 }
