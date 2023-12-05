@@ -6,6 +6,8 @@ public class ShowMessageContent
 {
     public ShowMessageContent(string? closeButtonText, string? secondaryButtonText, string? primaryButtonText,
         Action? yes, Action? no, Action? cancel)
+
+
     {
         CloseButtonText = closeButtonText;
         SecondaryButtonText = secondaryButtonText;
