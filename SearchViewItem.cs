@@ -137,5 +137,6 @@ public enum FileType
     自定义情景,
     便签,
     自定义,
+    文本,
     None
 }
