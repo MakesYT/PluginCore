@@ -1,6 +1,8 @@
-﻿namespace PluginCore;
+﻿using System.Drawing;
 
-public struct PluginInfo
+namespace PluginCore;
+
+public class PluginInfo
 {
     public string PluginName
     {
@@ -37,6 +39,31 @@ public struct PluginInfo
         set;
         get;
     }
+
+    public bool IsEnabled
+    {
+        set;
+        get;
+    }
+
+    public string Error
+    {
+        set;
+        get;
+    }
+
+    public string Path
+    {
+        set;
+        get;
+    }
+
+    public Icon Icon
+    {
+        set;
+        get;
+    }
+
 
     public string ToPlgString() => $"{Author}_{PluginId}";
 }
