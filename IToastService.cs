@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Avalonia.Controls;
 
 namespace PluginCore;
 
 public interface IToastService
 {
+    public void Init(TopLevel mainWindow);
     public void Show(string header, string text);
-
-    public void ShowMessageBox(string title, string content, Action? yesAction, Action? noAction);
-
-    void ShowMessageBoxW(string title, object content, ShowMessageContent showMessageContent);
 }
