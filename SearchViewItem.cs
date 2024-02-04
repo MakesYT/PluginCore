@@ -4,18 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 #endregion
 
 namespace PluginCore;
 
-public class SearchViewItem : IDisposable
+public partial class SearchViewItem : ObservableObject,IDisposable
 {
-    public string? FileName
-    {
-        set;
-        get;
-    }
+    [ObservableProperty]
+    public string? _fileName;
 
     public bool? IsVisible
     {
@@ -23,11 +21,8 @@ public class SearchViewItem : IDisposable
         get;
     }
 
-    public bool IsStared
-    {
-        set;
-        get;
-    }
+    [ObservableProperty]
+    public bool _isStared;
 
     public bool IsPined
     {
