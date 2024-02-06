@@ -10,19 +10,17 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PluginCore;
 
-public partial class SearchViewItem : ObservableObject,IDisposable
+public partial class SearchViewItem : ObservableObject, IDisposable
 {
-    [ObservableProperty]
-    public string? _fileName;
+    [ObservableProperty] public string? _fileName;
+
+    [ObservableProperty] public bool _isStared = false;
 
     public bool? IsVisible
     {
         set;
         get;
     }
-
-    [ObservableProperty]
-    public bool _isStared;
 
     public bool IsPined
     {
