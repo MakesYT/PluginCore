@@ -31,7 +31,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     } = false;
 
-    public HashSet<string>? Keys
+    public List<string>? Keys
     {
         set;
         get;
