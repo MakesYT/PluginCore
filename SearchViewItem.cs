@@ -2,9 +2,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
 #endregion
 
@@ -12,9 +11,13 @@ namespace PluginCore;
 
 public partial class SearchViewItem : ObservableObject, IDisposable
 {
-    [ObservableProperty] public string? _fileName;
-
     [ObservableProperty] public bool _isStared = false;
+
+    public string? ItemDisplayName
+    {
+        get;
+        set;
+    }
 
     public bool? IsVisible
     {
@@ -40,19 +43,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     }
 
-    public FileInfo? FileInfo
-    {
-        set;
-        get;
-    }
-
     public string? Arguments
-    {
-        set;
-        get;
-    }
-
-    public DirectoryInfo? DirectoryInfo
     {
         set;
         get;
@@ -64,19 +55,13 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     } = "";
 
-    public string? Url
-    {
-        set;
-        get;
-    }
-
     public int IconSymbol
     {
         set;
         get;
     }
 
-    public Icon? Icon
+    public Bitmap? Icon
     {
         set;
         get;
@@ -94,7 +79,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     }
 
-    public Func<SearchViewItem, Icon>? GetIconAction
+    public Func<SearchViewItem, Bitmap>? GetIconAction
     {
         set;
         get;
