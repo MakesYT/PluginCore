@@ -61,11 +61,8 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     }
 
-    public Bitmap? Icon
-    {
-        set;
-        get;
-    }
+    [ObservableProperty] private Bitmap? _icon;
+
 
     public string? IconPath
     {
@@ -73,7 +70,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     }
 
-    public Action<SearchViewItem>? Action
+    public Action<SearchViewItem?>? Action
     {
         set;
         get;
