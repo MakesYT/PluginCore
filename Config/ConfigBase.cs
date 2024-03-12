@@ -19,7 +19,7 @@ public class ConfigBase
     {
         ConfigChanged?.Invoke(this, new ConfigChangedArgs(name, value));
     }
-    public string Name { get;init ; }
+    public string Name { get;set; }
     public virtual void BeforeLoad()
     {
         
