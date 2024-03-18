@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PluginCore;
+namespace PluginCore.Config;
 
 public class ConfigChangedArgs : EventArgs
 {
@@ -15,11 +15,14 @@ public class ConfigChangedArgs : EventArgs
 public class ConfigBase
 {
     public event EventHandler<ConfigChangedArgs> ConfigChanged;
-    public void OnConfigChanged(string name, object? value)
+    public void OnConfigChanged(object sender,string name, object? value)
     {
-        ConfigChanged?.Invoke(this, new ConfigChangedArgs(name, value));
+        ConfigChanged?.Invoke(sender, new ConfigChangedArgs(name, value));
     }
     public string Name { get;set; }
+    public static ConfigBase Instance;
+    
+
     public virtual void BeforeLoad()
     {
         
