@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
@@ -31,7 +32,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     } = false;
 
-    public List<string>? Keys
+    public ReadOnlyCollection<string>? Keys
     {
         set;
         get;
