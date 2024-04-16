@@ -32,7 +32,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     } = false;
 
-    public ReadOnlyCollection<string>? Keys
+    public IEnumerable<IEnumerable<string>>? Keys
     {
         set;
         get;
