@@ -12,6 +12,7 @@ namespace PluginCore;
 
 public partial class SearchViewItem : ObservableObject, IDisposable
 {
+    [ObservableProperty] private Bitmap? _icon;
     [ObservableProperty] public bool _isStared = false;
 
     public string? ItemDisplayName
@@ -38,6 +39,18 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     }
 
+    public string[] SplitWords
+    {
+        set;
+        get;
+    } = Array.Empty<string>();
+
+    public bool[] CharMatchResults
+    {
+        set;
+        get;
+    } = [];
+
     public FileType FileType
     {
         set;
@@ -61,8 +74,6 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         set;
         get;
     }
-
-    [ObservableProperty] private Bitmap? _icon;
 
 
     public string? IconPath
