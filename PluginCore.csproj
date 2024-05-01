@@ -17,5 +17,10 @@
         <PackageReference Include="System.Drawing.Common" Version="8.0.1"/>
     </ItemGroup>
 
+
+    <ItemGroup>
+      <ProjectReference Include="..\PinyinM.NET\Pinyin.NET\Pinyin.NET.csproj" />
+    </ItemGroup>
+
 </Project>
  

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Pinyin.NET;
 using Bitmap = Avalonia.Media.Imaging.Bitmap;
 
 #endregion
@@ -33,23 +34,11 @@ public partial class SearchViewItem : ObservableObject, IDisposable
         get;
     } = false;
 
-    public IEnumerable<IEnumerable<string>>? Keys
+    public PinyinItem? PinyinItem
     {
         set;
         get;
     }
-
-    public string[] SplitWords
-    {
-        set;
-        get;
-    } = Array.Empty<string>();
-
-    public bool[] CharMatchResults
-    {
-        set;
-        get;
-    } = [];
 
     public FileType FileType
     {
