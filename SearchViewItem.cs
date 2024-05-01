@@ -15,6 +15,7 @@ public partial class SearchViewItem : ObservableObject, IDisposable
 {
     [ObservableProperty] private Bitmap? _icon;
     [ObservableProperty] public bool _isStared = false;
+    private string? _startDirectory;
 
     public string? ItemDisplayName
     {
@@ -44,6 +45,20 @@ public partial class SearchViewItem : ObservableObject, IDisposable
     {
         set;
         get;
+    }
+
+    public string? StartDirectory
+    {
+        set => _startDirectory = value;
+        get
+        {
+            if (_startDirectory== null)
+            {
+                return OnlyKey.Remove(OnlyKey.LastIndexOf('\\'));
+            }
+            return _startDirectory;
+        }
+        
     }
 
     public string? Arguments
