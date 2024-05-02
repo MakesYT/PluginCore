@@ -10,6 +10,7 @@ public enum ConfigFieldType
     布尔,
     快捷键,
     自定义选项,
-    字符串列表
+    字符串列表,
+    字符串列表支持添加,
     
 }
