@@ -2,7 +2,7 @@
 
 public interface ISearchItemTool
 {
-    void OpenFile(SearchViewItem? item);
+    void OpenFile(SearchViewItem? item, params object[] inputValues);
 
     void IgnoreItem(SearchViewItem? item);
 
@@ -16,5 +16,5 @@ public interface ISearchItemTool
 
     void OpenFolderInTerminal(SearchViewItem? item);
 
-    void OpenSearchItemByOnlyKey(string onlyKey);
+    void OpenSearchItemByOnlyKey(string onlyKey, params object[] inputValues);
 }
