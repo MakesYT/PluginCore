@@ -8,27 +8,23 @@ using System.Linq;
 
 namespace PluginCore.Attribute;
 
-[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-public class PluginMethod : System.Attribute
+/// <summary>
+/// 由该特性标记的方法会被Scenario索引为方法(Node)
+/// </summary>
+[AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
+public class ScenarioMethodAttribute : System.Attribute
 {
-    public PluginMethod(string name, params string[]? parameterName)
+    public ScenarioMethodAttribute(string name, params string[]? parameterName)
     {
         Name = name;
         ParameterName = parameterName?.Select(s => s.Split('='))
             .ToDictionary(s => s[0], s => s[1]);
     }
 
-    public string Name
-    {
-        get;
-        set;
-    }
 
-    public Dictionary<string, string>? ParameterName
-    {
-        get;
-        set;
-    }
+    public string Name { get; set; }
+
+    public Dictionary<string, string>? ParameterName { get; set; }
 
     public string GetParameterName(string key)
     {
