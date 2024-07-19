@@ -6,7 +6,7 @@ namespace PluginCore.Attribute.Scenario;
 /// 设置类在<see cref="Scenario"/>中的分类
 /// </summary>
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public class ScenarioMethodCategory : System.Attribute
+public class ScenarioMethodCategoryAttribute : System.Attribute
 {
     public bool IsMixinOrTopCategory { get; set; }
     public string Name { get; set; }
@@ -28,7 +28,7 @@ public class ScenarioMethodCategory : System.Attribute
     /// <param name="name">分类名称</param>
     /// <param name="isMixinOrTopCategory">是否为顶级分类，如果为false只能添加到该插件分类下的同名分类</param>
     /// 
-    public ScenarioMethodCategory(string name, bool isMixinOrTopCategory = false)
+    public ScenarioMethodCategoryAttribute(string name, bool isMixinOrTopCategory = false)
     {
         Name = name;
         IsMixinOrTopCategory = isMixinOrTopCategory;
