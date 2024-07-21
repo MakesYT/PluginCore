@@ -14,6 +14,10 @@ namespace PluginCore.Attribute;
 [AttributeUsage(AttributeTargets.Method, Inherited = true, AllowMultiple = true)]
 public class ScenarioMethodAttribute : System.Attribute
 {
+    public ScenarioMethodAttribute()
+    {
+    }
+
     public ScenarioMethodAttribute(string name, params string[]? parameterName)
     {
         Name = name;
