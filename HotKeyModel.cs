@@ -3,11 +3,21 @@ using System.Text.Json.Serialization;
 
 namespace Core.SDKs.HotKey;
 
+public enum HotKeyType
+{
+    Keyboard,
+    Mouse
+}
+
 /// <summary>
 ///     快捷键模型
 /// </summary>
 public struct HotKeyModel
 {
+    public HotKeyType Type { get; init; } = HotKeyType.Keyboard;
+    public ushort MouseButton { get; init; }
+    public ushort PressTimeMillis { get; init; } = 1000;
+
     public HotKeyModel()
     {
         UUID = Guid.NewGuid().ToString();
