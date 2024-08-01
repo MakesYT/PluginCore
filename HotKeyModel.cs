@@ -15,7 +15,7 @@ public enum HotKeyType
 public struct HotKeyModel
 {
     public HotKeyType Type { get; init; } = HotKeyType.Keyboard;
-    public ushort MouseButton { get; init; }
+    public ushort? MouseButton { get; init; }
     public ushort PressTimeMillis { get; init; } = 1000;
 
     public HotKeyModel()
