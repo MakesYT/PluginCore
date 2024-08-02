@@ -10,7 +10,7 @@ public interface ISearchItemTool
 
     void RunAsAdmin(SearchViewItem? item);
 
-    void Star(SearchViewItem? item);
+    void Star(SearchViewItem item);
 
     void Pin(SearchViewItem? item);
 
