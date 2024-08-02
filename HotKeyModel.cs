@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Text.Json.Serialization;
+using Core.SDKs.HotKey;
 
-namespace Core.SDKs.HotKey;
+namespace PluginCore;
 
 public enum HotKeyType
 {
