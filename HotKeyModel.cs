@@ -15,8 +15,9 @@ public enum HotKeyType
 /// </summary>
 public struct HotKeyModel
 {
+    public bool IsEnabled { get; set; } = true;
     public HotKeyType Type { get; init; } = HotKeyType.Keyboard;
-    public ushort? MouseButton { get; init; }
+    public ushort? MouseButton { get; init; } = ushort.MaxValue;
     public ushort PressTimeMillis { get; init; } = 1000;
 
     public HotKeyModel()
@@ -62,6 +63,7 @@ public struct HotKeyModel
     ///     选中的按键
     /// </summary>
     public EKey SelectKey { get; init; }
+
 
     /// <summary>
     ///     快捷键按键集合
