@@ -1,8 +1,10 @@
 ﻿using System.Drawing;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PluginCore;
 
-public class PluginInfo
+[ObservableObject]
+public partial class PluginInfo
 {
     public string PluginName { set; get; }
 
@@ -16,13 +18,14 @@ public class PluginInfo
 
     public string Version { set; get; }
 
-    public bool IsEnabled { set; get; }
+    [ObservableProperty] public bool isEnabled;
 
     public string Error { set; get; }
 
     public string Path { set; get; }
 
     public Icon Icon { set; get; }
+    public bool IsLocalPlugin { set; get; }
 
 
     public string ToPlgString() => $"{Author}_{PluginId}";
