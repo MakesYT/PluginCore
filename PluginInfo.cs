@@ -19,6 +19,7 @@ public partial class PluginInfo
     public string Version { set; get; }
 
     [ObservableProperty] public bool isEnabled;
+    [ObservableProperty] public bool unloadFailed;
 
     public string Error { set; get; }
 
