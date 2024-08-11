@@ -4,8 +4,8 @@ namespace PluginCore;
 
 public class CustomScenarioTrigger
 {
-    protected static void Excite(PluginInfo pluginInfo, string name)
+    protected static void Excite(string name)
     {
-        WeakReferenceMessenger.Default.Send($"{pluginInfo.ToPlgString()}_{name}", "CustomScenarioTrigger");
+        WeakReferenceMessenger.Default.Send("", "CustomScenarioTrigger");
     }
 }
