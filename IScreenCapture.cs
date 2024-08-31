@@ -12,9 +12,15 @@ public struct ScreenCaptureInfo()
     public int Height = -1;
 }
 
+public struct ScreenCaptureResult
+{
+    public Bitmap Source;
+    public Bitmap Mosaic;
+    public ScreenCaptureInfo Info;
+}
 public interface IScreenCapture
 {
-    public (Queue<Bitmap>, Queue<Bitmap>) CaptureAllScreen();
+    public Stack<ScreenCaptureResult> CaptureAllScreen();
 
 
     public (Bitmap?, Bitmap?)? CaptureScreen(ScreenCaptureInfo screenCaptureInfo, bool withMosaic = false);
