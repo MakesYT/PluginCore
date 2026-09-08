@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -25,7 +25,7 @@ public class ConfigBase
         ConfigChanged?.Invoke(sender, new ConfigChangedArgs(name, value));
     }
 
-    public string Name { get; set; }
+    [JsonIgnore] public string Name { get; set; } = string.Empty;
     public static ConfigBase Instance;
     [JsonIgnore] public Dictionary<string, object> invokes { get; init; } = new();
 
