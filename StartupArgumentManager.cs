@@ -28,7 +28,9 @@ public enum StartupAction
     
     FileLocksmith,
 
-    LanFileShare
+    LanFileShare,
+
+    Login
 }
 
 public class StartupResult
@@ -148,40 +150,60 @@ public static class StartupArgumentManager
     private static StartupResult ParseUrl(string url)
     {
         var result = new StartupResult();
-        var content = url.Replace("kitopiaurl://", "", StringComparison.OrdinalIgnoreCase).TrimEnd('/');
-        
-        // Handle semicolon separated k=v pairs
-        var parts = content.Split(';');
-        
-        foreach (var part in parts)
+        if (string.IsNullOrWhiteSpace(url)) return result;
+
+        var content = url.Trim();
+        const string scheme = "kitopiaurl://";
+        if (content.StartsWith(scheme, StringComparison.OrdinalIgnoreCase))
         {
-            var kv = part.Split('=', 2);
-            if (kv.Length != 2) continue;
-            
-            var key = kv[0].Trim();
-            var val = Uri.UnescapeDataString(kv[1].Trim());
-            
-            if (key.Equals("action", StringComparison.OrdinalIgnoreCase))
+            content = content.Substring(scheme.Length);
+        }
+        else if (content.StartsWith("kitopiaurl:", StringComparison.OrdinalIgnoreCase))
+        {
+            content = content.Substring("kitopiaurl:".Length);
+        }
+        content = content.Trim().Trim('/');
+
+        // Extract path/prefix if present before '?'
+        var qIdx = content.IndexOf('?');
+        string? queryPart;
+        if (qIdx >= 0)
+        {
+            var prefix = content.Substring(0, qIdx).Trim().Trim('/');
+            queryPart = content.Substring(qIdx + 1).Trim().Trim('/');
+            if (!string.IsNullOrEmpty(prefix))
             {
-                 if (Enum.TryParse(val, true, out StartupAction act)) result.Action = act;
+                if (Enum.TryParse(prefix, true, out StartupAction prefixAct))
+                {
+                    result.Action = prefixAct;
+                }
+                else
+                {
+                    ParseSegmentIntoResult(prefix, result);
+                }
             }
-            else if (key.Equals("value", StringComparison.OrdinalIgnoreCase))
-            {
-                result.Value = val;
-                result.Values = UnpackValues(val).ToList();
-            }
-            else if (key.Equals("values", StringComparison.OrdinalIgnoreCase))
-            {
-                result.Values = UnpackValues(val).ToList();
-                result.Value = result.Values.FirstOrDefault() ?? string.Empty;
-            }
-            
-            result.Extras[key] = val;
+        }
+        else
+        {
+            queryPart = content.Trim().Trim('/');
         }
 
-        if (result.Values.Count == 0 && !string.IsNullOrWhiteSpace(result.Value))
+        if (!string.IsNullOrEmpty(queryPart))
         {
-            result.Values.Add(result.Value);
+            var parts = queryPart.Split(new[] { ';', '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+            {
+                ParseSegmentIntoResult(part, result);
+            }
+        }
+
+        if (result.Extras.TryGetValue("code", out var code) && string.IsNullOrWhiteSpace(result.Value))
+        {
+            result.Value = code;
+        }
+        else if (result.Extras.TryGetValue("token", out var token) && string.IsNullOrWhiteSpace(result.Value))
+        {
+            result.Value = token;
         }
 
         // Legacy Inference
@@ -199,7 +221,59 @@ public static class StartupArgumentManager
             }
         }
 
+        if (result.Values.Count == 0 && !string.IsNullOrWhiteSpace(result.Value))
+        {
+            result.Values.Add(result.Value);
+        }
+
         return result;
+    }
+
+    private static void ParseSegmentIntoResult(string segment, StartupResult result)
+    {
+        var kv = segment.Split('=', 2);
+        if (kv.Length != 2)
+        {
+            if (Enum.TryParse(segment.Trim().Trim('/'), true, out StartupAction act))
+            {
+                result.Action = act;
+            }
+            return;
+        }
+
+        var key = kv[0].Trim();
+        var val = Uri.UnescapeDataString(kv[1].Trim());
+
+        if (key.Equals("action", StringComparison.OrdinalIgnoreCase))
+        {
+            val = val.Trim().Trim('/');
+            if (Enum.TryParse(val, true, out StartupAction act)) result.Action = act;
+        }
+        else if (key.Equals("value", StringComparison.OrdinalIgnoreCase))
+        {
+            result.Value = val;
+            result.Values = UnpackValues(val).ToList();
+        }
+        else if (key.Equals("values", StringComparison.OrdinalIgnoreCase))
+        {
+            result.Values = UnpackValues(val).ToList();
+            result.Value = result.Values.FirstOrDefault() ?? string.Empty;
+        }
+        else if (key.Equals("code", StringComparison.OrdinalIgnoreCase) ||
+                 key.Equals("token", StringComparison.OrdinalIgnoreCase))
+        {
+            val = val.TrimEnd('/');
+            if (result.Action == StartupAction.None)
+            {
+                result.Action = StartupAction.Login;
+            }
+        }
+        else if (key.Equals("state", StringComparison.OrdinalIgnoreCase))
+        {
+            val = val.TrimEnd('/');
+        }
+
+        result.Extras[key] = val;
     }
 
     public static string GenerateCmd(StartupAction action, string value)
